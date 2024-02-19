@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "glowl"
-version = "0.1.0"
-description = ""
-authors = ["eeriemyxi <eeriemyxi@proton.me>"]
+version = "0.1.1"
+description = "Typing mistakes helper."
+authors = ["eeriemyxi <myxi@envs.net>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
