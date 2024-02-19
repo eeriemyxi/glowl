@@ -14,6 +14,7 @@ TYPER_MAX_WORDS = 30
 TYPER_WORD_FILE = SCRIPT_DIR / "words" / "two_hundred.txt"
 COUNTER_MIN_RANGE = 2
 COUNTER_MAX_RANGE = 4
+VERBOSITY = 1
 
 
 parser = argparse.ArgumentParser(
@@ -54,6 +55,12 @@ parser.add_argument(
     type=int,
     help=f"Word limit per run. Defaults to {TYPER_MAX_WORDS}.",
 )
+parser.add_argument(
+    "--verbosity",
+    default=VERBOSITY,
+    type=int,
+    help=f"Set verbosity. Defaults to {VERBOSITY}. Value range: 0-5. 0 to disable logs.",
+)
 args = parser.parse_args()
 
 TYPER_EXE = args.typer_exe
@@ -62,6 +69,7 @@ TYPER_WORD_FILE = args.typer_word_file
 TYPER_MAX_WORDS = args.typer_max_words
 COUNTER_MAX_RANGE = args.counter_max_range
 COUNTER_MIN_RANGE = args.counter_min_range
+VERBOSITY = args.verbosity
 TYPER_EXE_ARGS = [
     "--oneshot",
     "--json",
@@ -72,7 +80,7 @@ TYPER_EXE_ARGS = [
     "-",
 ]
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=int(VERBOSITY * 10) if VERBOSITY > 0 else 60)
 log = logging.getLogger(__name__)
 
 log.info("Typer: %s", TYPER_EXE)
@@ -127,6 +135,8 @@ def main():
         log.info("Weights for run #%s: %s", run_no, weights)
         run_no += 1
 
+        return tt_return_code
+
 
 if __name__ == "__main__":
-    main()
+    exit(main())
