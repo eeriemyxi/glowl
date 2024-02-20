@@ -132,7 +132,7 @@ def main():
                 word_mistake_counter.subtract(
                     {word: random.randint(COUNTER_MIN_RANGE, COUNTER_MAX_RANGE)}
                 )
-                if word_mistake_counter[word] < 1:
+                if word_mistake_counter[word] < COUNTER_MIN_RANGE:
                     word_mistake_counter[word] = COUNTER_MIN_RANGE
 
         for item in tt_res[0]["mistakes"]:
