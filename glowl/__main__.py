@@ -149,7 +149,7 @@ def main():
                     word_mistake_counter[word] = COUNTER_MIN_RANGE
 
         for item in tt_res[0]["mistakes"]:
-            if not item["word"] in words:
+            if find_index(words, item["word"]) == -1:
                 # tt has a bug: can return non-existing words
                 continue
             word_mistake_counter.update(
