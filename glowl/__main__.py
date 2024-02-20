@@ -91,6 +91,7 @@ TYPER_EXE_ARGS = [
     "--oneshot",
     "--json",
     "--nobackspace",
+    "--noskip",
     "-t",
     str(TYPER_MAX_SECONDS),
     "-quotes",
