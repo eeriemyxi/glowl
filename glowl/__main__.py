@@ -121,11 +121,10 @@ def find_index(arr: tuple, target: str):
         return -1
 
 
-@functools.cache
 def is_in_mistakes(word, mistakes):
-    for mistake in mistakes:
-        if word == mistake.word:
-            del mistake
+    for index in range(len(mistakes)):
+        if word == mistakes[index].word:
+            del mistakes[index]
             return True
     return False
 
@@ -166,14 +165,10 @@ def main():
             run_no += 1
             continue
 
-        tt_mistakes = tuple(
-            [
-                collections.namedtuple("Mistake", ["word", "typed"])(
-                    i["word"], i["typed"]
-                )
-                for i in tt_res[0]["mistakes"]
-            ]
-        )
+        tt_mistakes = [
+            collections.namedtuple("Mistake", ["word", "typed"])(i["word"], i["typed"])
+            for i in tt_res[0]["mistakes"]
+        ]
 
         for mistake in tt_mistakes:
             if find_index(words, mistake.word) == -1:
@@ -190,8 +185,13 @@ def main():
                 )
                 if word_mistake_counter[word] < COUNTER_MIN_RANGE:
                     word_mistake_counter[word] = COUNTER_MIN_RANGE
-            if word_mistake_counter.get(word, 0) > COUNTER_MAX_RANGE * COUNTER_ABS_LIMIT_MULTIPLIER:
-                word_mistake_counter[word] = COUNTER_MAX_RANGE * COUNTER_ABS_LIMIT_MULTIPLIER
+            if (
+                word_mistake_counter.get(word, 0)
+                > COUNTER_MAX_RANGE * COUNTER_ABS_LIMIT_MULTIPLIER
+            ):
+                word_mistake_counter[word] = (
+                    COUNTER_MAX_RANGE * COUNTER_ABS_LIMIT_MULTIPLIER
+                )
 
         log.info("Mistakes for run #%s: %s", run_no, word_mistake_counter)
         log.info("Weights for run #%s: %s", run_no, weights)
