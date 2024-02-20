@@ -21,7 +21,7 @@ TYPER_MAX_WORDS = 30
 TYPER_WORD_FILE = SCRIPT_DIR / "words" / "two_hundred.txt"
 COUNTER_MIN_RANGE = 2
 COUNTER_MAX_RANGE = 4
-VERBOSITY = 1
+VERBOSITY = 0
 
 
 parser = argparse.ArgumentParser(
