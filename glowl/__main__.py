@@ -112,6 +112,14 @@ def find_index(arr: tuple, target: str):
         return -1
 
 
+@functools.cache
+def is_in_mistakes(word, mistakes):
+    for mistake in mistakes:
+        if word == mistake.word:
+            return True
+    return False
+
+
 def main():
     words = tuple(TYPER_WORD_FILE.read().split())
     weights = [1] * len(words)
@@ -121,10 +129,12 @@ def main():
 
     while tt_return_code == 0:
         log.info("Doing run #%s", run_no)
+
         for w, c in word_mistake_counter.items():
             weights[find_index(words, w)] = c
 
-        text = " ".join(random.choices(words, weights=weights, k=TYPER_MAX_WORDS))
+        calc_words = random.choices(words, weights=weights, k=TYPER_MAX_WORDS)
+        text = " ".join(calc_words)
         outp = subprocess.run(
             [TYPER_EXE, *TYPER_EXE_ARGS],
             capture_output=True,
@@ -134,26 +144,41 @@ def main():
 
         tt_res = json.loads(outp.stdout)
         tt_return_code = outp.returncode
+        continue_reason = ""
 
-        if tt_return_code != 0 or not tt_res[0]["mistakes"]:
-            log.warning("Continuing run #%s", run_no)
+        if tt_return_code != 0:
+            continue_reason = f"return code is non-zero: {tt_return_code}"
+        elif not tt_res[0]["mistakes"]:
+            continue_reason = f"no mistakes made"
+
+        if continue_reason:
+            log.warning("Continuing run #%s because: %s", run_no, continue_reason)
             run_no += 1
             continue
 
-        for word in word_mistake_counter:
-            if word not in tt_res[0]["mistakes"]:
+        tt_mistakes = tuple(
+            [
+                collections.namedtuple("Mistake", ["word", "typed"])(
+                    i["word"], i["typed"]
+                )
+                for i in tt_res[0]["mistakes"]
+            ]
+        )
+
+        for word in calc_words:
+            if not is_in_mistakes(word, tt_mistakes):
                 word_mistake_counter.subtract(
                     {word: random.randint(COUNTER_MIN_RANGE, COUNTER_MAX_RANGE)}
                 )
                 if word_mistake_counter[word] < COUNTER_MIN_RANGE:
                     word_mistake_counter[word] = COUNTER_MIN_RANGE
 
-        for item in tt_res[0]["mistakes"]:
-            if find_index(words, item["word"]) == -1:
+        for mistake in tt_mistakes:
+            if find_index(words, mistake.word) == -1:
                 # tt has a bug: can return non-existing words
                 continue
             word_mistake_counter.update(
-                {item["word"]: random.randint(COUNTER_MIN_RANGE, COUNTER_MAX_RANGE)}
+                {mistake.word: random.randint(COUNTER_MIN_RANGE, COUNTER_MAX_RANGE)}
             )
 
         log.info("Mistakes for run #%s: %s", run_no, word_mistake_counter)
