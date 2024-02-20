@@ -107,7 +107,7 @@ def main():
     run_no = 1
 
     while tt_return_code == 0:
-
+        log.info("Doing run #%s", run_no)
         for w, c in word_mistake_counter.items():
             weights[find_index(words, w)] = c
 
@@ -117,7 +117,7 @@ def main():
             capture_output=True,
             input=json.dumps([dict(text=text, attribution="")]).encode(),
         )
-        log.info("Output: %s", outp)
+        log.info("Typer output for run #%s: %s", run_no, outp)
 
         tt_res = json.loads(outp.stdout)
         tt_return_code = outp.returncode
@@ -145,9 +145,10 @@ def main():
 
         log.info("Mistakes for run #%s: %s", run_no, word_mistake_counter)
         log.info("Weights for run #%s: %s", run_no, weights)
+        log.info("Return code for run #%s: %s", run_no, tt_return_code)
         run_no += 1
 
-        return tt_return_code
+    return tt_return_code
 
 
 if __name__ == "__main__":
