@@ -166,7 +166,7 @@ def main():
         )
 
         for word in calc_words:
-            if not is_in_mistakes(word, tt_mistakes):
+            if not is_in_mistakes(word, tt_mistakes) and word in word_mistake_counter:
                 word_mistake_counter.subtract(
                     {word: random.randint(COUNTER_MIN_RANGE, COUNTER_MAX_RANGE)}
                 )
