@@ -10,6 +10,7 @@ import json
 import logging
 import pathlib
 import random
+import functools
 import subprocess
 
 SCRIPT_DIR = pathlib.Path(__file__).parent
@@ -93,8 +94,13 @@ log.info("Typer: %s", TYPER_EXE)
 log.info("Typer args: %s", TYPER_EXE_ARGS)
 
 
+@functools.cache
+def find_index(arr: tuple, target: str):
+    return arr.index(target)
+
+
 def main():
-    words = TYPER_WORD_FILE.read().split()
+    words = tuple(TYPER_WORD_FILE.read().split())
     word_mistake_counter = collections.Counter()
     tt_return_code = 0
     run_no = 1
@@ -103,7 +109,7 @@ def main():
         weights = [1] * len(words)
 
         for w, c in word_mistake_counter.items():
-            weights[words.index(w)] = c
+            weights[find_index(words, w)] = c
 
         text = " ".join(random.choices(words, weights=weights, k=TYPER_MAX_WORDS))
         outp = subprocess.run(
