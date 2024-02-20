@@ -117,6 +117,7 @@ def find_index(arr: tuple, target: str):
 def is_in_mistakes(word, mistakes):
     for mistake in mistakes:
         if word == mistake.word:
+            del mistake
             return True
     return False
 
@@ -166,14 +167,6 @@ def main():
             ]
         )
 
-        for word in calc_words:
-            if not is_in_mistakes(word, tt_mistakes) and word in word_mistake_counter:
-                word_mistake_counter.subtract(
-                    {word: random.randint(COUNTER_MIN_RANGE, COUNTER_MAX_RANGE)}
-                )
-                if word_mistake_counter[word] < COUNTER_MIN_RANGE:
-                    word_mistake_counter[word] = COUNTER_MIN_RANGE
-
         for mistake in tt_mistakes:
             if find_index(words, mistake.word) == -1:
                 # tt has a bug: can return non-existing words
@@ -182,6 +175,13 @@ def main():
                 {mistake.word: random.randint(COUNTER_MIN_RANGE, COUNTER_MAX_RANGE)}
             )
 
+        for word in calc_words:
+            if not is_in_mistakes(word, tt_mistakes) and word in word_mistake_counter:
+                word_mistake_counter.subtract(
+                    {word: random.randint(COUNTER_MIN_RANGE, COUNTER_MAX_RANGE)}
+                )
+                if word_mistake_counter[word] < COUNTER_MIN_RANGE:
+                    word_mistake_counter[word] = COUNTER_MIN_RANGE
         log.info("Mistakes for run #%s: %s", run_no, word_mistake_counter)
         log.info("Weights for run #%s: %s", run_no, weights)
         log.info("Return code for run #%s: %s", run_no, tt_return_code)
