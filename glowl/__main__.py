@@ -106,7 +106,10 @@ log.info("Typer args: %s", TYPER_EXE_ARGS)
 
 @functools.cache
 def find_index(arr: tuple, target: str):
-    return arr.index(target)
+    try:
+        return arr.index(target)
+    except ValueError:
+        return -1
 
 
 def main():
