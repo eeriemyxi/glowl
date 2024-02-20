@@ -22,6 +22,7 @@ TYPER_MAX_WORDS = 30
 TYPER_WORD_FILE = SCRIPT_DIR / "words" / "two_hundred.txt"
 COUNTER_MIN_RANGE = 2
 COUNTER_MAX_RANGE = 100
+COUNTER_ABS_LIMIT_MULTIPLIER = 3
 VERBOSITY = 0
 VERSION = importlib.metadata.version("glowl")
 
@@ -59,6 +60,12 @@ parser.add_argument(
     help=f"Incorrect word counter max range. Defaults to {COUNTER_MAX_RANGE}.",
 )
 parser.add_argument(
+    "--counter-abs-limit-multiplier",
+    default=COUNTER_ABS_LIMIT_MULTIPLIER,
+    type=int,
+    help=f"Absolute limit multiplier for incorrect word counter. Defaults to {COUNTER_ABS_LIMIT_MULTIPLIER}.",
+)
+parser.add_argument(
     "--typer-max-words",
     default=TYPER_MAX_WORDS,
     type=int,
@@ -86,6 +93,7 @@ TYPER_WORD_FILE = args.typer_word_file
 TYPER_MAX_WORDS = args.typer_max_words
 COUNTER_MAX_RANGE = args.counter_max_range
 COUNTER_MIN_RANGE = args.counter_min_range
+COUNTER_ABS_LIMIT_MULTIPLIER = args.counter_abs_limit_multiplier
 VERBOSITY = args.verbosity
 TYPER_EXE_ARGS = [
     "--oneshot",
@@ -182,8 +190,8 @@ def main():
                 )
                 if word_mistake_counter[word] < COUNTER_MIN_RANGE:
                     word_mistake_counter[word] = COUNTER_MIN_RANGE
-            if word_mistake_counter.get(word, 0) > COUNTER_MAX_RANGE * 3:
-                word_mistake_counter[word] = COUNTER_MAX_RANGE * 2
+            if word_mistake_counter.get(word, 0) > COUNTER_MAX_RANGE * COUNTER_ABS_LIMIT_MULTIPLIER:
+                word_mistake_counter[word] = COUNTER_MAX_RANGE * COUNTER_ABS_LIMIT_MULTIPLIER
 
         log.info("Mistakes for run #%s: %s", run_no, word_mistake_counter)
         log.info("Weights for run #%s: %s", run_no, weights)
