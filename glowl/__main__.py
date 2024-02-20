@@ -182,6 +182,9 @@ def main():
                 )
                 if word_mistake_counter[word] < COUNTER_MIN_RANGE:
                     word_mistake_counter[word] = COUNTER_MIN_RANGE
+            if word_mistake_counter.get(word, 0) > COUNTER_MAX_RANGE * 3:
+                word_mistake_counter[word] = COUNTER_MAX_RANGE * 2
+
         log.info("Mistakes for run #%s: %s", run_no, word_mistake_counter)
         log.info("Weights for run #%s: %s", run_no, weights)
         log.info("Return code for run #%s: %s", run_no, tt_return_code)
