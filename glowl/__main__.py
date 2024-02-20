@@ -101,12 +101,12 @@ def find_index(arr: tuple, target: str):
 
 def main():
     words = tuple(TYPER_WORD_FILE.read().split())
+    weights = [1] * len(words)
     word_mistake_counter = collections.Counter()
     tt_return_code = 0
     run_no = 1
 
     while tt_return_code == 0:
-        weights = [1] * len(words)
 
         for w, c in word_mistake_counter.items():
             weights[find_index(words, w)] = c
