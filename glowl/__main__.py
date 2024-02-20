@@ -12,6 +12,7 @@ import pathlib
 import random
 import functools
 import subprocess
+import importlib.metadata
 
 SCRIPT_DIR = pathlib.Path(__file__).parent
 
@@ -22,6 +23,7 @@ TYPER_WORD_FILE = SCRIPT_DIR / "words" / "two_hundred.txt"
 COUNTER_MIN_RANGE = 2
 COUNTER_MAX_RANGE = 100
 VERBOSITY = 0
+VERSION = importlib.metadata.version("glowl")
 
 
 parser = argparse.ArgumentParser(
@@ -67,6 +69,12 @@ parser.add_argument(
     default=VERBOSITY,
     type=int,
     help=f"Set verbosity. Defaults to {VERBOSITY}. Value range: 0-5. 0 to disable logs.",
+)
+parser.add_argument(
+    "-V", "--version",
+    action="version",
+    version=VERSION,
+    help=f"Show version code.",
 )
 args = parser.parse_args()
 
