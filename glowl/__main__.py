@@ -6,13 +6,13 @@ License: MIT
 
 import argparse
 import collections
+import functools
+import importlib.metadata
 import json
 import logging
 import pathlib
 import random
-import functools
 import subprocess
-import importlib.metadata
 
 SCRIPT_DIR = pathlib.Path(__file__).parent
 
@@ -65,13 +65,15 @@ parser.add_argument(
     help=f"Word limit per run. Defaults to {TYPER_MAX_WORDS}.",
 )
 parser.add_argument(
-    "-v", "--verbosity",
+    "-v",
+    "--verbosity",
     default=VERBOSITY,
     type=int,
     help=f"Set verbosity. Defaults to {VERBOSITY}. Value range: 0-5. 0 to disable logs.",
 )
 parser.add_argument(
-    "-V", "--version",
+    "-V",
+    "--version",
     action="version",
     version=VERSION,
     help=f"Show version code.",
