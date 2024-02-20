@@ -1,3 +1,9 @@
+"""Typing mistakes helper.
+
+Author: eeriemyxi (at Github) (myxi@envs.net)
+License: MIT
+"""
+
 import argparse
 import collections
 import json
