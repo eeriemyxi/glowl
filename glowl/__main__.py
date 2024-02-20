@@ -63,7 +63,7 @@ parser.add_argument(
     help=f"Word limit per run. Defaults to {TYPER_MAX_WORDS}.",
 )
 parser.add_argument(
-    "--verbosity",
+    "-v", "--verbosity",
     default=VERBOSITY,
     type=int,
     help=f"Set verbosity. Defaults to {VERBOSITY}. Value range: 0-5. 0 to disable logs.",
