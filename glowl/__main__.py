@@ -20,7 +20,7 @@ TYPER_EXE = "tt"
 TYPER_MAX_SECONDS = 30
 TYPER_MAX_WORDS = 30
 TYPER_WORD_FILE = SCRIPT_DIR / "words" / "two-hundred.txt"
-TYPER_EXE_ARGS_EXTRAS = "--nobackspace;--noskip"
+TYPER_EXE_ARGS_EXTRAS = "-nobackspace;-noskip;-theme=default"
 COUNTER_MIN_RANGE = 2
 COUNTER_MAX_RANGE = 100
 COUNTER_ABS_LIMIT_MULTIPLIER = 3
@@ -45,6 +45,7 @@ parser.add_argument(
 parser.add_argument(
     "--typer-exe-args-extras",
     default=TYPER_EXE_ARGS_EXTRAS,
+    type=str,
     help=f"Append command line args to typer executable. Defaults to {repr(TYPER_EXE_ARGS_EXTRAS)}.",
 )
 parser.add_argument(
@@ -109,8 +110,8 @@ COUNTER_MIN_RANGE = args.counter_min_range
 COUNTER_ABS_LIMIT_MULTIPLIER = args.counter_abs_limit_multiplier
 VERBOSITY = args.verbosity
 TYPER_EXE_ARGS = [
-    "--oneshot",
-    "--json",
+    "-oneshot",
+    "-json",
     "-t",
     str(TYPER_MAX_SECONDS),
     "-quotes",
