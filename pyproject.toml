@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "glowl"
-version = "0.1.10"
+version = "0.1.11"
 description = "Typing mistakes helper."
 authors = ["eeriemyxi <myxi@envs.net>"]
 readme = "README.md"
