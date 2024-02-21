@@ -13,9 +13,9 @@ To use Glowl, follow these steps:
 
 ## Command-line Arguments
 ```
-usage: Glowl [-h] [--typer-exe TYPER_EXE] [--typer-max-sec TYPER_MAX_SEC] [--typer-word-file TYPER_WORD_FILE] [--counter-min-range COUNTER_MIN_RANGE]
-             [--counter-max-range COUNTER_MAX_RANGE] [--counter-abs-limit-multiplier COUNTER_ABS_LIMIT_MULTIPLIER] [--typer-max-words TYPER_MAX_WORDS]
-             [-v VERBOSITY] [-V] [--append-script-directory]
+usage: Glowl [-h] [--typer-exe TYPER_EXE] [--typer-max-sec TYPER_MAX_SEC] [--typer-exe-args-extras TYPER_EXE_ARGS_EXTRAS] [--typer-word-file TYPER_WORD_FILE]
+             [--counter-min-range COUNTER_MIN_RANGE] [--counter-max-range COUNTER_MAX_RANGE] [--counter-abs-limit-multiplier COUNTER_ABS_LIMIT_MULTIPLIER]
+             [--typer-max-words TYPER_MAX_WORDS] [-v VERBOSITY] [-V] [--append-script-directory]
 
 Helper for typing mistakes.
 
@@ -25,6 +25,8 @@ options:
                         Typer executable. Defaults to 'tt'.
   --typer-max-sec TYPER_MAX_SEC
                         Typer max seconds. Defaults to 30.
+  --typer-exe-args-extras TYPER_EXE_ARGS_EXTRAS
+                        Append command line args to typer executable. Defaults to '--nobackspace;--noskip'.
   --typer-word-file TYPER_WORD_FILE
                         Typer word file. Defaults (currently) to '[script directory]/glowl/words/two_hundred.txt'.
   --counter-min-range COUNTER_MIN_RANGE
