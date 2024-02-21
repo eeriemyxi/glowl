@@ -12,18 +12,35 @@ To use Glowl, follow these steps:
 4. Execute the script by running `glowl` or `poetry run glowl` with appropriate arguments.
 
 ## Command-line Arguments
+```
+usage: Glowl [-h] [--typer-exe TYPER_EXE] [--typer-max-sec TYPER_MAX_SEC] [--typer-word-file TYPER_WORD_FILE] [--counter-min-range COUNTER_MIN_RANGE]
+             [--counter-max-range COUNTER_MAX_RANGE] [--counter-abs-limit-multiplier COUNTER_ABS_LIMIT_MULTIPLIER] [--typer-max-words TYPER_MAX_WORDS]
+             [-v VERBOSITY] [-V] [--append-script-directory]
 
-Glowl supports the following command-line arguments:
+Helper for typing mistakes.
 
-- `--typer-exe`: Path to the Typer executable. Defaults to `"tt"`.
-- `--typer-max-sec`: Maximum seconds for each typing session. Defaults to `30`.
-- `--typer-word-file`: Path to the word file used by Typer. Defaults (currently) to `"[script directory]/words/two_hundred.txt"`.
-- `--counter-min-range`: Minimum range for incorrect word counter. Defaults to `2`.
-- `--counter-max-range`: Maximum range for incorrect word counter. Defaults to `100`.
-- `--counter-abs-limit-multiplier`: Absolute limit multiplier for incorrect word counter. Defaults to `3`.
-- `--typer-max-words`: Word limit per run. Defaults to `30`.
-- `-v`, `--verbosity`: Set verbosity. Defaults to `0`. Value range: `0-5`. `0` to disable logs.
-- `-V`, `--version`: Show version code.
+options:
+  -h, --help            show this help message and exit
+  --typer-exe TYPER_EXE
+                        Typer executable. Defaults to 'tt'.
+  --typer-max-sec TYPER_MAX_SEC
+                        Typer max seconds. Defaults to 30.
+  --typer-word-file TYPER_WORD_FILE
+                        Typer word file. Defaults (currently) to '[script directory]/glowl/words/two_hundred.txt'.
+  --counter-min-range COUNTER_MIN_RANGE
+                        Incorrect word counter minimum range. Defaults to 2.
+  --counter-max-range COUNTER_MAX_RANGE
+                        Incorrect word counter max range. Defaults to 100.
+  --counter-abs-limit-multiplier COUNTER_ABS_LIMIT_MULTIPLIER
+                        Absolute limit multiplier for incorrect word counter. Defaults to 3.
+  --typer-max-words TYPER_MAX_WORDS
+                        Word limit per run. Defaults to 30.
+  -v VERBOSITY, --verbosity VERBOSITY
+                        Set verbosity. Defaults to 0. Value range: 0-5. 0 to disable logs.
+  -V, --version         Show version code.
+  --append-script-directory
+                        Look for the word file in the script directory's dedicated folder.
+```
 
 Example usages:
 ```bash
