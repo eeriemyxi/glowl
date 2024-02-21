@@ -28,7 +28,7 @@ options:
   --typer-exe-args-extras TYPER_EXE_ARGS_EXTRAS
                         Append command line args to typer executable. Defaults to '--nobackspace;--noskip'.
   --typer-word-file TYPER_WORD_FILE
-                        Typer word file. Defaults (currently) to '[script directory]/glowl/words/two_hundred.txt'.
+                        Typer word file. Defaults (currently) to '[script directory]/glowl/words/two-hundred.txt'.
   --counter-min-range COUNTER_MIN_RANGE
                         Incorrect word counter minimum range. Defaults to 2.
   --counter-max-range COUNTER_MAX_RANGE
