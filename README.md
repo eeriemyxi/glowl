@@ -26,7 +26,7 @@ options:
   --typer-max-sec TYPER_MAX_SEC
                         Typer max seconds. Defaults to 30.
   --typer-exe-args-extras TYPER_EXE_ARGS_EXTRAS
-                        Append command line args to typer executable. Defaults to '--nobackspace;--noskip'.
+                        Append command line args to typer executable. Defaults to '-nobackspace;-noskip;-theme=default'.
   --typer-word-file TYPER_WORD_FILE
                         Typer word file. Defaults (currently) to '[script directory]/glowl/words/two-hundred.txt'.
   --counter-min-range COUNTER_MIN_RANGE
@@ -48,7 +48,11 @@ Example usages:
 ```bash
 glowl --typer-max-sec 30 --counter-max-range 5
 ```
-Setting verbosity to a higher level (e.g., 1) to enable more detailed logging:
+Append custom arguments to typer executable:
+```bash
+glowl --typer-exe-args-extras="-theme=mar;-noskip;-nobackspace" --counter-max-range 5
+```
+Setting verbosity to a higher level (e.g., 1) to enable more detailed logging (1 is most verbose and 5 is least):
 ```bash
 glowl -v 1
 ```
