@@ -20,6 +20,7 @@ TYPER_EXE = "tt"
 TYPER_MAX_SECONDS = 30
 TYPER_MAX_WORDS = 30
 TYPER_WORD_FILE = SCRIPT_DIR / "words" / "two-hundred.txt"
+TYPER_EXE_ARGS_EXTRAS = "--nobackspace;--noskip"
 COUNTER_MIN_RANGE = 2
 COUNTER_MAX_RANGE = 100
 COUNTER_ABS_LIMIT_MULTIPLIER = 3
@@ -40,6 +41,11 @@ parser.add_argument(
     default=TYPER_MAX_SECONDS,
     type=int,
     help=f"Typer max seconds. Defaults to {repr(TYPER_MAX_SECONDS)}.",
+)
+parser.add_argument(
+    "--typer-exe-args-extras",
+    default=TYPER_EXE_ARGS_EXTRAS,
+    help=f"Append command line args to typer executable. Defaults to {repr(TYPER_EXE_ARGS_EXTRAS)}.",
 )
 parser.add_argument(
     "--typer-word-file",
@@ -105,13 +111,12 @@ VERBOSITY = args.verbosity
 TYPER_EXE_ARGS = [
     "--oneshot",
     "--json",
-    "--nobackspace",
-    "--noskip",
     "-t",
     str(TYPER_MAX_SECONDS),
     "-quotes",
     "-",
 ]
+TYPER_EXE_ARGS.extend(args.typer_exe_args_extras.split(";"))
 
 logging.basicConfig(level=int(VERBOSITY * 10) if VERBOSITY > 0 else 60)
 log = logging.getLogger(__name__)
