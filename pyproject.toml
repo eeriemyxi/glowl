@@ -1,4 +1,4 @@
-ntool.poetry]
+[tool.poetry]
 name = "glowl"
 version = "0.1.12"
 description = "Typing mistakes helper."
