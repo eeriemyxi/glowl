@@ -146,6 +146,10 @@ def compute_abs_counter_limit():
     return COUNTER_MAX_RANGE * COUNTER_ABS_LIMIT_MULTIPLIER
 
 
+def generate_count_score():
+    return random.randint(COUNTER_MIN_RANGE, COUNTER_MAX_RANGE)
+
+
 def main():
     words = tuple(TYPER_WORD_FILE.read().split())
     weights = [1] * len(words)
@@ -192,13 +196,13 @@ def main():
                 # tt has a bug: can return non-existing words
                 continue
             word_mistake_counter.update(
-                {mistake.word: random.randint(COUNTER_MIN_RANGE, COUNTER_MAX_RANGE)}
+                {mistake.word: generate_count_score()}
             )
 
         for word in calc_words:
             if not is_in_mistakes(word, tt_mistakes) and word in word_mistake_counter:
                 word_mistake_counter.subtract(
-                    {word: random.randint(COUNTER_MIN_RANGE, COUNTER_MAX_RANGE)}
+                    {word: generate_count_score()}
                 )
                 if word_mistake_counter[word] < COUNTER_MIN_RANGE:
                     word_mistake_counter[word] = COUNTER_MIN_RANGE
