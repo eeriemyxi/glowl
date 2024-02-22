@@ -92,7 +92,7 @@ parser.add_argument(
     help=f"Show version code.",
 )
 parser.add_argument(
-    "--append-script-directory",
+    "--prepend-script-directory",
     action="store_true",
     help=f"Look for the word file in the script directory's dedicated folder.",
 )
@@ -101,7 +101,7 @@ args = parser.parse_args()
 TYPER_EXE = args.typer_exe
 TYPER_MAX_SECONDS = args.typer_max_sec
 TYPER_WORD_FILE = args.typer_word_file
-if args.append_script_directory:
+if args.prepend_script_directory:
     TYPER_WORD_FILE = SCRIPT_DIR / "words" / TYPER_WORD_FILE
 TYPER_WORD_FILE = open(TYPER_WORD_FILE, "r")
 TYPER_MAX_WORDS = args.typer_max_words
