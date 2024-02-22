@@ -142,6 +142,10 @@ def is_in_mistakes(word, mistakes):
     return False
 
 
+def compute_abs_counter_limit():
+    return COUNTER_MAX_RANGE * COUNTER_ABS_LIMIT_MULTIPLIER
+
+
 def main():
     words = tuple(TYPER_WORD_FILE.read().split())
     weights = [1] * len(words)
@@ -198,13 +202,12 @@ def main():
                 )
                 if word_mistake_counter[word] < COUNTER_MIN_RANGE:
                     word_mistake_counter[word] = COUNTER_MIN_RANGE
-            if (
-                word_mistake_counter.get(word, 0)
-                > COUNTER_MAX_RANGE * COUNTER_ABS_LIMIT_MULTIPLIER
-            ):
+
+            abs_counter_limit = compute_abs_counter_limit()
+            if (word_mistake_counter.get(word, 0) > abs_counter_limit):
                 word_mistake_counter[word] = (
-                    COUNTER_MAX_RANGE * COUNTER_ABS_LIMIT_MULTIPLIER
-                )
+                    abs_counter_limit
+            )
 
         log.info("Mistakes for run #%s: %s", run_no, word_mistake_counter)
         log.info("Weights for run #%s: %s", run_no, weights)
