@@ -15,7 +15,7 @@ To use Glowl, follow these steps:
 ```
 usage: Glowl [-h] [--typer-exe TYPER_EXE] [--typer-max-sec TYPER_MAX_SEC] [--typer-exe-args-extras TYPER_EXE_ARGS_EXTRAS] [--typer-word-file TYPER_WORD_FILE]
              [--counter-min-range COUNTER_MIN_RANGE] [--counter-max-range COUNTER_MAX_RANGE] [--counter-abs-limit-multiplier COUNTER_ABS_LIMIT_MULTIPLIER]
-             [--typer-max-words TYPER_MAX_WORDS] [-v VERBOSITY] [-V] [--append-script-directory]
+             [--typer-max-words TYPER_MAX_WORDS] [-v VERBOSITY] [-V] [--prepend-script-directory]
 
 Helper for typing mistakes.
 
@@ -40,7 +40,7 @@ options:
   -v VERBOSITY, --verbosity VERBOSITY
                         Set verbosity. Defaults to 0. Value range: 0-5. 0 to disable logs.
   -V, --version         Show version code.
-  --append-script-directory
+  --prepend-script-directory
                         Look for the word file in the script directory's dedicated folder.
 ```
 
