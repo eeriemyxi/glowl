@@ -155,6 +155,7 @@ def main():
     weights = [1] * len(words)
     word_mistake_counter = collections.Counter()
     tt_return_code = 0
+    stderr_was_empty = True
     run_no = 1
 
     while tt_return_code == 0:
@@ -180,6 +181,8 @@ def main():
             continue_reason = f"return code is non-zero: {tt_return_code}"
         elif not tt_res[0]["mistakes"]:
             continue_reason = f"no mistakes made"
+
+        stderr_was_empty = outp.stderr == b''
 
         if continue_reason:
             log.warning("Continuing run #%s because: %s", run_no, continue_reason)
@@ -208,6 +211,7 @@ def main():
                     word_mistake_counter[word] = COUNTER_MIN_RANGE
 
             abs_counter_limit = compute_abs_counter_limit()
+
             if (word_mistake_counter.get(word, 0) > abs_counter_limit):
                 word_mistake_counter[word] = (
                     abs_counter_limit
@@ -217,6 +221,9 @@ def main():
         log.info("Weights for run #%s: %s", run_no, weights)
         log.info("Return code for run #%s: %s", run_no, tt_return_code)
         run_no += 1
+
+    if stderr_was_empty:
+        tt_return_code = 0
 
     return tt_return_code
 
