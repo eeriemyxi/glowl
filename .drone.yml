@@ -1,0 +1,10 @@
+kind: pipeline
+name: default
+
+steps:
+- name: update usage section in README.me
+  image: python:3.11
+  commands:
+  - pip install poetry==1.7.1
+  - poetry install --with dev
+  - python drone/update_readme_cli_args.py
