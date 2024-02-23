@@ -13,7 +13,7 @@ To use Glowl, follow these steps:
 
 ## Command-line Arguments
 ```
-usage: Glowl [-h] [--typer-exe TYPER_EXE] [--typer-max-sec TYPER_MAX_SEC]
+usage: glowl [-h] [--typer-exe TYPER_EXE] [--typer-max-sec TYPER_MAX_SEC]
              [--typer-exe-args-extras TYPER_EXE_ARGS_EXTRAS]
              [--typer-word-file TYPER_WORD_FILE]
              [--counter-min-range COUNTER_MIN_RANGE]
