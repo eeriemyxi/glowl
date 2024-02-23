@@ -30,6 +30,7 @@ def main():
 
     with open("README.md", "w") as readme:
         readme.write(new_readme_text)
+        print("[UPDATE CLI ARGS] Updated README.md")
 
 
 if __name__ == "__main__":
