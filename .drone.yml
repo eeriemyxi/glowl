@@ -8,3 +8,5 @@ steps:
   - pip install poetry==1.7.1
   - poetry install --with dev
   - poetry run python drone/update_readme_cli_args.py
+  - git commit -am "update usage section in README.me"
+  - git push
