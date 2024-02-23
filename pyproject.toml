@@ -11,6 +11,9 @@ python = "^3.11"
 [tool.poetry.scripts]
 glowl = 'glowl.__main__:main'
 
+[tool.poetry.group.dev.dependencies]
+marko = "^2.0.3"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
