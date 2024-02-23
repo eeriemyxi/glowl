@@ -29,7 +29,7 @@ VERSION = importlib.metadata.version("glowl")
 
 
 parser = argparse.ArgumentParser(
-    prog="Glowl", description="Helper for typing mistakes."
+    prog="glowl", description="Helper for typing mistakes."
 )
 parser.add_argument(
     "--typer-exe",
