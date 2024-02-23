@@ -19,6 +19,7 @@ steps:
     remote: git@git.envs.net:myxi/glowl.git
     force: false
     commit: true
+    author_name: "eeriemyxi"
     commit_message: "\"drone: auto-update usage section\""
     ssh_key:
       from_secret: SSH_KEY
