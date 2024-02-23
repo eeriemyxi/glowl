@@ -182,7 +182,7 @@ def main():
         elif not tt_res[0]["mistakes"]:
             continue_reason = f"no mistakes made"
 
-        stderr_was_empty = outp.stderr == b''
+        stderr_was_empty = outp.stderr == b""
 
         if continue_reason:
             log.warning("Continuing run #%s because: %s", run_no, continue_reason)
@@ -198,24 +198,18 @@ def main():
             if find_index(words, mistake.word) == -1:
                 # tt has a bug: can return non-existing words
                 continue
-            word_mistake_counter.update(
-                {mistake.word: generate_count_score()}
-            )
+            word_mistake_counter.update({mistake.word: generate_count_score()})
 
         for word in calc_words:
             if not is_in_mistakes(word, tt_mistakes) and word in word_mistake_counter:
-                word_mistake_counter.subtract(
-                    {word: generate_count_score()}
-                )
+                word_mistake_counter.subtract({word: generate_count_score()})
                 if word_mistake_counter[word] < COUNTER_MIN_RANGE:
                     word_mistake_counter[word] = COUNTER_MIN_RANGE
 
             abs_counter_limit = compute_abs_counter_limit()
 
-            if (word_mistake_counter.get(word, 0) > abs_counter_limit):
-                word_mistake_counter[word] = (
-                    abs_counter_limit
-            )
+            if word_mistake_counter.get(word, 0) > abs_counter_limit:
+                word_mistake_counter[word] = abs_counter_limit
 
         log.info("Mistakes for run #%s: %s", run_no, word_mistake_counter)
         log.info("Weights for run #%s: %s", run_no, weights)
