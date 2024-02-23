@@ -11,5 +11,14 @@ steps:
   - echo "[START]  PRINTING README"
   - cat README.md
   - echo "[FINISH] PRINTING README"
-  # - git commit -am "update usage section in README.me"
-  # - git push --all
+steps:
+- name: git-push
+  image: appleboy/drone-git-push
+  settings:
+    branch: dev
+    remote: git@git.envs.net:myxi/glowl.git
+    force: false
+    commit: true
+    commit_message: '[DRONE] update usage section in README.me'
+    ssh_key: 
+      from_secret: ssh_key
