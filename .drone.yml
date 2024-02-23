@@ -11,6 +11,7 @@ steps:
   - echo "[START]  PRINTING README"
   - cat README.md
   - echo "[FINISH] PRINTING README"
+
 steps:
 - name: git-push
   image: appleboy/drone-git-push
