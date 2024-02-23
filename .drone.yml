@@ -12,7 +12,6 @@ steps:
   - cat README.md
   - echo "[FINISH] PRINTING README"
 
-steps:
 - name: git-push
   image: appleboy/drone-git-push
   settings:
@@ -21,6 +20,5 @@ steps:
     force: false
     commit: true
     commit_message: '[DRONE] update usage section in README.me'
-    # ssh_key: ${SSH_KEY}
     ssh_key:
       from_secret: SSH_KEY
