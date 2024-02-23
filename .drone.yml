@@ -20,5 +20,4 @@ steps:
     force: false
     commit: true
     commit_message: '[DRONE] update usage section in README.me'
-    ssh_key: 
-      from_secret: ssh_key
+    ssh_key: ${SSH_KEY}
