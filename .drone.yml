@@ -19,6 +19,6 @@ steps:
     remote: git@git.envs.net:myxi/glowl.git
     force: false
     commit: true
-    commit_message: '[DRONE] update usage section in README.me'
+    commit_message: "drone: auto-update usage section"
     ssh_key:
       from_secret: SSH_KEY
