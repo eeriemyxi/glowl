@@ -7,4 +7,4 @@ steps:
   commands:
   - pip install poetry==1.7.1
   - poetry install --with dev
-  - python drone/update_readme_cli_args.py
+  - poetry run python drone/update_readme_cli_args.py
