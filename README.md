@@ -13,9 +13,14 @@ To use Glowl, follow these steps:
 
 ## Command-line Arguments
 ```
-usage: Glowl [-h] [--typer-exe TYPER_EXE] [--typer-max-sec TYPER_MAX_SEC] [--typer-exe-args-extras TYPER_EXE_ARGS_EXTRAS] [--typer-word-file TYPER_WORD_FILE]
-             [--counter-min-range COUNTER_MIN_RANGE] [--counter-max-range COUNTER_MAX_RANGE] [--counter-abs-limit-multiplier COUNTER_ABS_LIMIT_MULTIPLIER]
-             [--typer-max-words TYPER_MAX_WORDS] [-v VERBOSITY] [-V] [--prepend-script-directory]
+usage: glowl [-h] [--typer-exe TYPER_EXE] [--typer-max-sec TYPER_MAX_SEC]
+             [--typer-exe-args-extras TYPER_EXE_ARGS_EXTRAS]
+             [--typer-word-file TYPER_WORD_FILE]
+             [--counter-min-range COUNTER_MIN_RANGE]
+             [--counter-max-range COUNTER_MAX_RANGE]
+             [--counter-abs-limit-multiplier COUNTER_ABS_LIMIT_MULTIPLIER]
+             [--typer-max-words TYPER_MAX_WORDS] [-v VERBOSITY] [-V]
+             [--prepend-script-directory]
 
 Helper for typing mistakes.
 
@@ -26,22 +31,27 @@ options:
   --typer-max-sec TYPER_MAX_SEC
                         Typer max seconds. Defaults to 30.
   --typer-exe-args-extras TYPER_EXE_ARGS_EXTRAS
-                        Append command line args to typer executable. Defaults to '-nobackspace;-noskip;-theme=default'.
+                        Append command line args to typer executable. Defaults
+                        to '-nobackspace;-noskip;-theme=default'.
   --typer-word-file TYPER_WORD_FILE
-                        Typer word file. Defaults (currently) to '[script directory]/glowl/words/two-hundred.txt'.
+                        Typer word file. Defaults (currently) to
+                        '/drone/src/glowl/words/two-hundred.txt'.
   --counter-min-range COUNTER_MIN_RANGE
                         Incorrect word counter minimum range. Defaults to 2.
   --counter-max-range COUNTER_MAX_RANGE
                         Incorrect word counter max range. Defaults to 100.
   --counter-abs-limit-multiplier COUNTER_ABS_LIMIT_MULTIPLIER
-                        Absolute limit multiplier for incorrect word counter. Defaults to 3.
+                        Absolute limit multiplier for incorrect word counter.
+                        Defaults to 3.
   --typer-max-words TYPER_MAX_WORDS
                         Word limit per run. Defaults to 30.
   -v VERBOSITY, --verbosity VERBOSITY
-                        Set verbosity. Defaults to 0. Value range: 0-5. 0 to disable logs.
+                        Set verbosity. Defaults to 0. Value range: 0-5. 0 to
+                        disable logs.
   -V, --version         Show version code.
   --prepend-script-directory
-                        Look for the word file in the script directory's dedicated folder.
+                        Look for the word file in the script directory's
+                        dedicated folder.
 ```
 
 Example usages:
@@ -96,6 +106,6 @@ You can customize Glowl's behavior by adjusting the command-line arguments:
 ## License
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
----
+* * *
 
 Feel free to enhance Glowl according to your needs and contribute back to the project! If you encounter any issues or have suggestions for improvement, please open an issue on the repository. Thank you for using Glowl!
