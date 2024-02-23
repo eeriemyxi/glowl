@@ -81,6 +81,7 @@ You can customize Glowl's behavior by adjusting the command-line arguments:
 ## Dependencies
 
 - Python 3.11.x
+- [`tt`](https://github.com/lemnos/tt) (tested on v0.4.2)
 - Required Python built-in packages:
   - `argparse`
   - `collections`
