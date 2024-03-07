@@ -39,7 +39,7 @@ options:
                         Typer word file. Defaults (currently) to
                         '/drone/src/glowl/words/two-hundred.txt'.
   --counter-min-range COUNTER_MIN_RANGE
-                        Incorrect word counter minimum range. Defaults to 2.
+                        Incorrect word counter minimum range. Defaults to 3.
   --counter-max-range COUNTER_MAX_RANGE
                         Incorrect word counter max range. Defaults to 100.
   --counter-abs-limit-multiplier COUNTER_ABS_LIMIT_MULTIPLIER
