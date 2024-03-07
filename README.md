@@ -2,15 +2,17 @@
 
 Glowl is a Python script designed to assist with identifying typing mistakes by utilizing the [`tt`](https://github.com/lemnos/tt) (tested on v0.4.2) tool. This README provides an overview of the script's functionality, usage instructions, and customization options.
 
-## Usage
+## Installation
 
-To use Glowl, follow these steps:
-
-1. Clone the repository to your local machine.
-2. Ensure you have Python and [Poetry](https://python-poetry.org) installed (the script is compatible with Python 3.11.x).
-3. Install the required dependencies by running `pip install .` or `poetry install` in script directory.
-4. Execute the script by running `glowl` or `poetry run glowl` with appropriate arguments.
-
+#### First Method
+```
+git clone --depth 1 --branch main <REPO URL> glowl
+pip install ./glowl
+```
+#### Second Method
+```
+pip install git+<REPO URL>@main
+```
 ## Command-line Arguments
 ```
 usage: glowl [-h] [--typer-exe TYPER_EXE] [--typer-max-sec TYPER_MAX_SEC]
@@ -54,7 +56,7 @@ options:
                         dedicated folder.
 ```
 
-Example usages:
+## Examples
 ```bash
 glowl --typer-max-sec 30 --counter-max-range 5
 ```
