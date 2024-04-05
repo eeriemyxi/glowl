@@ -20,7 +20,7 @@ TYPER_EXE = "tt"
 TYPER_MAX_SECONDS = 30
 TYPER_MAX_WORDS = 30
 TYPER_WORD_FILE = SCRIPT_DIR / "words" / "two-hundred.txt"
-TYPER_EXE_ARGS_EXTRAS = "-nobackspace;-noskip;-theme=default"
+TYPER_EXE_ARGS_EXTRAS = "-noskip;-theme=default"
 COUNTER_MIN_RANGE = 3
 COUNTER_MAX_RANGE = 100
 COUNTER_ABS_LIMIT_MULTIPLIER = 3
