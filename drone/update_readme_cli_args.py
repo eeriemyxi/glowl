@@ -1,12 +1,13 @@
-import marko
 import subprocess
+
+import marko
 
 CLI_ARGS_HEADER_TEXT = "Command-line Arguments"
 GLOWL_HELP_OUTPUT = subprocess.run(["glowl", "--help"], capture_output=True)
 
 
-def main():
-    with open("README.md", "r") as readme:
+def main() -> None:
+    with open("README.md") as readme:
         markdown = marko.Markdown(extensions=["footnote"])
         markdown_renderer = marko.md_renderer.MarkdownRenderer()
 
@@ -30,7 +31,6 @@ def main():
 
     with open("README.md", "w") as readme:
         readme.write(new_readme_text)
-        print("[UPDATE CLI ARGS] Updated README.md")
 
 
 if __name__ == "__main__":
