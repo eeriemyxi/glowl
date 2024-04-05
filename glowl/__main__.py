@@ -1,6 +1,6 @@
 """Typing mistakes helper.
 
-Author: eeriemyxi (at Github) (myxi@envs.net)
+Author: myxi@envs.net
 License: MIT
 """
 
@@ -13,6 +13,7 @@ import logging
 import pathlib
 import random
 import subprocess
+import typing
 
 SCRIPT_DIR = pathlib.Path(__file__).parent
 
@@ -34,24 +35,25 @@ parser = argparse.ArgumentParser(
 parser.add_argument(
     "--typer-exe",
     default=TYPER_EXE,
-    help=f"Typer executable. Defaults to {repr(TYPER_EXE)}.",
+    help=f"Typer executable. Defaults to {TYPER_EXE!r}.",
 )
 parser.add_argument(
     "--typer-max-sec",
     default=TYPER_MAX_SECONDS,
     type=int,
-    help=f"Typer max seconds. Defaults to {repr(TYPER_MAX_SECONDS)}.",
+    help=f"Typer max seconds. Defaults to {TYPER_MAX_SECONDS!r}.",
 )
 parser.add_argument(
     "--typer-exe-args-extras",
     default=TYPER_EXE_ARGS_EXTRAS,
     type=str,
-    help=f"Append command line args to typer executable. Defaults to {repr(TYPER_EXE_ARGS_EXTRAS)}.",
+    help="Append command line args to typer executable. "
+    f"Defaults to {TYPER_EXE_ARGS_EXTRAS!r}.",
 )
 parser.add_argument(
     "--typer-word-file",
     default=TYPER_WORD_FILE,
-    help=f"Typer word file. Defaults (currently) to {repr(str(TYPER_WORD_FILE))}.",
+    help=f"Typer word file. Defaults (currently) to {str(TYPER_WORD_FILE)!r}.",
 )
 parser.add_argument(
     "--counter-min-range",
@@ -69,7 +71,8 @@ parser.add_argument(
     "--counter-abs-limit-multiplier",
     default=COUNTER_ABS_LIMIT_MULTIPLIER,
     type=int,
-    help=f"Absolute limit multiplier for incorrect word counter. Defaults to {COUNTER_ABS_LIMIT_MULTIPLIER}.",
+    help="Absolute limit multiplier for incorrect word counter. "
+    f"Defaults to {COUNTER_ABS_LIMIT_MULTIPLIER}.",
 )
 parser.add_argument(
     "--typer-max-words",
@@ -82,28 +85,29 @@ parser.add_argument(
     "--verbosity",
     default=VERBOSITY,
     type=int,
-    help=f"Set verbosity. Defaults to {VERBOSITY}. Value range: 0-5. 0 to disable logs.",
+    help=f"Set verbosity. Defaults to {VERBOSITY}. "
+    "Value range: 0-5. 0 to disable logs.",
 )
 parser.add_argument(
     "-V",
     "--version",
     action="version",
     version=VERSION,
-    help=f"Show version code.",
+    help="Show version code.",
 )
 parser.add_argument(
     "--prepend-script-directory",
     action="store_true",
-    help=f"Look for the word file in the script directory's dedicated folder.",
+    help="Look for the word file in the script directory's dedicated folder.",
 )
 args = parser.parse_args()
+
+if args.prepend_script_directory:
+    TYPER_WORD_FILE = SCRIPT_DIR / "words" / TYPER_WORD_FILE
 
 TYPER_EXE = args.typer_exe
 TYPER_MAX_SECONDS = args.typer_max_sec
 TYPER_WORD_FILE = args.typer_word_file
-if args.prepend_script_directory:
-    TYPER_WORD_FILE = SCRIPT_DIR / "words" / TYPER_WORD_FILE
-TYPER_WORD_FILE = open(TYPER_WORD_FILE, "r")
 TYPER_MAX_WORDS = args.typer_max_words
 COUNTER_MAX_RANGE = args.counter_max_range
 COUNTER_MIN_RANGE = args.counter_min_range
@@ -126,15 +130,20 @@ log.info("Typer: %s", TYPER_EXE)
 log.info("Typer args: %s", TYPER_EXE_ARGS)
 
 
+class Mistake(typing.NamedTuple):
+    word: str
+    typed: str
+
+
 @functools.cache
-def find_index(arr: tuple, target: str):
+def find_index(arr: tuple, target: str) -> int:
     try:
         return arr.index(target)
     except ValueError:
         return -1
 
 
-def is_in_mistakes(word, mistakes):
+def is_in_mistakes(word: str, mistakes: list[Mistake]) -> bool:
     for index in range(len(mistakes)):
         if word == mistakes[index].word:
             del mistakes[index]
@@ -142,16 +151,17 @@ def is_in_mistakes(word, mistakes):
     return False
 
 
-def compute_abs_counter_limit():
+def compute_abs_counter_limit() -> int:
     return COUNTER_MAX_RANGE * COUNTER_ABS_LIMIT_MULTIPLIER
 
 
-def generate_count_score():
-    return random.randint(COUNTER_MIN_RANGE, COUNTER_MAX_RANGE)
+def generate_count_score() -> int:
+    return random.randint(COUNTER_MIN_RANGE, COUNTER_MAX_RANGE)  # noqa: S311
 
 
-def main():
-    words = tuple(TYPER_WORD_FILE.read().split())
+def main() -> int:  # noqa: C901
+    with open(TYPER_WORD_FILE) as file:
+        words = tuple(file.read().split())
     weights = [1] * len(words)
     word_mistake_counter = collections.Counter()
     tt_return_code = 0
@@ -164,10 +174,10 @@ def main():
         for w, c in word_mistake_counter.items():
             weights[find_index(words, w)] = c
 
-        calc_words = random.choices(words, weights=weights, k=TYPER_MAX_WORDS)
+        calc_words = random.choices(words, weights=weights, k=TYPER_MAX_WORDS)  # noqa: S311
         text = " ".join(calc_words)
         outp = subprocess.run(
-            [TYPER_EXE, *TYPER_EXE_ARGS],
+            [TYPER_EXE, *TYPER_EXE_ARGS],  # noqa: S603
             capture_output=True,
             input=json.dumps([dict(text=text, attribution="")]).encode(),
         )
@@ -180,7 +190,7 @@ def main():
         if tt_return_code != 0:
             continue_reason = f"return code is non-zero: {tt_return_code}"
         elif not tt_res[0]["mistakes"]:
-            continue_reason = f"no mistakes made"
+            continue_reason = "no mistakes made"
 
         stderr_was_empty = outp.stderr == b""
 
@@ -189,10 +199,7 @@ def main():
             run_no += 1
             continue
 
-        tt_mistakes = [
-            collections.namedtuple("Mistake", ["word", "typed"])(i["word"], i["typed"])
-            for i in tt_res[0]["mistakes"]
-        ]
+        tt_mistakes = [Mistake(i["word"], i["typed"]) for i in tt_res[0]["mistakes"]]
 
         for mistake in tt_mistakes:
             if find_index(words, mistake.word) == -1:
